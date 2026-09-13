@@ -2,8 +2,6 @@
 
 Time: Sep-9-2026
 
-This is my first learning note of learning embedded linux. To be honest, I don't know how to learn it, so at first I tried to read the linux official documents and tutorials. These articles I read introduce some basic rules about linux kernel development and embedded linux, after reading these, I compiled a list of points to keep in mind. The list is updating and it's obvious that it won't be finished in one day. I have listed the articles I've read and included the links for future reference.
-
 ## [HOWTO do Linux kernel development — The Linux Kernel documentation](https://docs.kernel.org/process/howto.html)
 
 - Arbitrary `long long` divisions and floating point are not allowed. 
@@ -38,9 +36,7 @@ This is my first learning note of learning embedded linux. To be honest, I don't
 
 ## [驱动章节实验环境搭建 — [野火]嵌入式Linux驱动开发实战指南](https://doc.embedfire.com/linux/rk356x/driver/zh/latest/linux_driver/base_exper_env.html)
 
-This tutorial was writing for LubanCat_RK series boards, I did't purchase them. So I just record some universal points.
-
-- The programs ultimately run on the boards, it could be compiled on board or use a cross-compilor on PC, we need to download the kernel source code or corresponding kernel headers. Afterwards compile the source code, driver, modules and device tree, and finally copy the driver modules and device tree to the development boards for execution. What's more, a driver module is a program with independent functionality, it could be compiled indepently but could't run indepently, it will be linked to kernel as a part of kernel space while runing. So if we want to run a kernel module we wrote in some one edition of kernel, then we must compile it on that edition.
+The programs ultimately run on the boards, it could be compiled on board or use a cross-compilor on PC, we need to download the kernel source code or corresponding kernel headers. Afterwards compile the source code, driver, modules and device tree, and finally copy the driver modules and device tree to the development boards for execution. What's more, a driver module is a program with independent functionality, it could be compiled indepently but could't run indepently, it will be linked to kernel as a part of kernel space while runing. So if we want to run a kernel module we wrote in some one edition of kernel, then we must compile it on that edition.
 
 - Run `uname -a` on your board to check the kernel edition of it.
 
