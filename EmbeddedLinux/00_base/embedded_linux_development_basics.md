@@ -50,9 +50,9 @@ The programs ultimately run on the boards, it could be compiled on board or use 
 
     Testing is typically done by compiling the code into a separate kernel module and loading it manually, this facilitates debugging and saves time.
 
-- Run `sudo insmod xxx.ko` to install a module  
+- Run `sudo insmod xxx.ko` to load a module  
     
-    Run `sudo rmmod xxx.ko` to uninstall a module 
+    Run `sudo rmmod xxx.ko` to unload a module 
     
     Run `lsmod` to view currently loaded kernel modules.  
 
