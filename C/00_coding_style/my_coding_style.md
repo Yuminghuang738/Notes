@@ -195,8 +195,10 @@ Macro names are all uppercase. Struct, enum, and union names are capitalized. Or
 Use nested braces when initializing nested structs to avoid ambiguity.
 
 ```c
-struct outer o = {
-    .inner = {
+struct outer o = 
+{
+    .inner = 
+    {
         .a = 1,
         .b = 2
     }
