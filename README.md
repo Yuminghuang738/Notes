@@ -1,1 +1,1 @@
-**This is my learning notes repository of learning coding which is uesd to look back and record my learning trace**
+**This is my coding notes repo, where I review and record my learning journey.**
