@@ -8,9 +8,9 @@ Time: Sep-9-2026
 
 - SPDX identifiers are necessary in source code.
 
-- The kernel has a large number of documents that can be automatically generated from the source code itself or from ReStructuredText markups(ReST) 
+- Run: `make pdfdocs` `make  htmldocs`, `make latexdocs` or `make epubdocs` to generate kernel documents.
     
-    Run: `make pdfdocs` `make  htmldocs`, `make latexdocs` or `make epubdocs` to generate.
+    - The kernel has a large number of documents that can be automatically generated from the source code itself or from ReStructuredText markups(ReST) 
 
 - Make sure patches are plain readable text as stated in `Documentation/process/submitting-patches.rst` when adding patches to mail
 
@@ -42,7 +42,7 @@ Time: Sep-9-2026
 
 The programs ultimately run on the boards, it could be compiled on board or use a cross-compilor on PC, we need to download the kernel source code or corresponding kernel headers. Afterwards compile the source code, driver, modules and device tree, and finally copy the driver modules and device tree to the development boards for execution. What's more, a driver module is a program with independent functionality, it could be compiled indepently but could't run indepently, it will be linked to kernel as a part of kernel space while runing. So if we want to run a kernel module we wrote in some one edition of kernel, then we must compile it on that edition.
 
-- Run `uname -a` on your board to check the kernel edition of it.
+- Run: `uname -a` on your board to check the kernel edition of it.
 
 - The kernel source code cand be obtained by using `git clone` from the official repository or directly from SDK and compile it on the borad or use cross-compilor on PC.   
 
@@ -50,21 +50,16 @@ The programs ultimately run on the boards, it could be compiled on board or use 
 
     Testing is typically done by compiling the code into a separate kernel module and loading it manually, this facilitates debugging and saves time.
 
-- Run `sudo insmod xxx.ko` to load a module  
-    
-    Run `sudo rmmod xxx.ko` to unload a module 
-    
-    Run `lsmod` to view currently loaded kernel modules.  
-
 - Use dtc(Device Tree Compilor) or kernel's build scripts to compile device tree, the dtc can be found in `linux/scripts/dtc/dtc` or downloaded via a package manager(eg: `sudo apt install device-tree-compilor`).
     
     The device tree files we need to use are all located in `linux/arch/arm64/boot/dts/`.
 
-- Replace the device tree file in the borad's `/boot/dtb/` directory with the newly compiled device tree file to load the device tree. 
+- Run: `ls -l /boot/` to view device tree symbolic link.
 
-    Boot up and log in to the board, then check the symbolic links in the `/boot/` directory to confirm the device tree currently in use. 
+    - Replace the device tree file in the borad's `/boot/dtb/` directory with the newly compiled device tree file to load the device tree. 
+
+        Boot up and log in to the board, then check the symbolic links in the `/boot/` directory to confirm the device tree currently in use. 
     
-    Run: `ls -l /boot/` to view device tree symbolic link.
 
 - Device tree nodes have corresponding files in the file system, loacted in the `/proc/device-tree` directory. 
 
