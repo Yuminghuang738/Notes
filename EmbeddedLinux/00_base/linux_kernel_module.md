@@ -108,17 +108,17 @@ Kernel modules can't rely on C standard library functions while running, so we n
 
     - `MODULE_ALIAS`: set an alias for the module.
 
-- Use the `module_init` macro to register the module's loading function with the kernel.
+- Use `module_init` to register the module's loading function with the kernel.
 
     eg: `module_init(init_func);`, `init_func` is the name of the module loading function.
 
-- Use the `module_exit` macro to register the module's unload function with the kernel.
+- Use `module_exit` to register the module's unload function with the kernel.
 
     eg: `module_exit(exit_func);`, `exit_func` is the name of the module unload function.
 
 - The compiler will report a error if a function definded in a kernel module duplicates a function in kernel source code, add the `static` modifier to the kernel module code to avoid that.  
 
-- Use the `printk` to print the messages, it requires specifying a kern_level definded in the `<linux/kern_levels.h>`, if not specify, it will be set as `KERN_DEFAULT` level.
+- Use `printk` to print the messages, it requires specifying a kern_level definded in the `<linux/kern_levels.h>`, if not specify, it will be set as `KERN_DEFAULT` level.
 
     eg: `printk(KERN_ERR "Failed\n");`
 
@@ -147,7 +147,7 @@ Kernel modules can't rely on C standard library functions while running, so we n
 
 - General workflow of testing a module:
 
-    - Place the kernel module into the `kernel` directory within the kernel version directory.
+    - Place the kernel module into the `kernel` directory within the kernel version directory or take `-b` parameter to specify path.
 
         eg: `mv helloworld.ko /lib/modules/4.19.232/kernel/`
 
@@ -166,3 +166,21 @@ Kernel modules can't rely on C standard library functions while running, so we n
     - Unload the module.
 
         eg: `mdoprobe -r helloworld`
+
+- Use `module_param` to pass parameters to the kenel module.
+
+    - It takes three parameters: `name`, `type`, `perm`.
+
+        eg: 
+            
+            static int count = 1;
+
+            module_param(count, int, 0644);    
+
+    - The `perm` parameter does not have executable permissions set. Forcibly assigning an executable permission value to this parameter will result in an error during kernel module loading.
+
+        ![perm-parameter](images/perm-parameter.png)
+
+- Use `MODULE_PARM_DESC` to add a text description to a parameter definded by `module_param`.
+
+    eg: `MODULE_PARM_DESC(count, "Number of times to print");`

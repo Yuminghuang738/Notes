@@ -32,15 +32,23 @@ Time: Sep-15-2016
 
 ## printk.h
 
-- `#define printk(fmt, ...) printk_index_wrap(_printk, fmt, ##__VA_ARGS__)`: 
+- `#define printk(fmt, ...) printk_index_wrap(_printk, fmt, ##__VA_ARGS__)`
 
     - A printf-like function implemented within the kernel itself, requires specifying a kern_level definded in the `<linux/kern_levels.h>`, if not specify, it will be set as `KERN_DEFAULT` level.
 
         eg: `printk(KERN_ERR "Failed\n");`
 
+- `#define pr_info(fmt, ...) printk(KERN_INFO pr_fmt(fmt), ##__VA_ARGS__)`
+
+    - This macro expands to a printk with KERN_INFO loglevel. It uses pr_fmt() to generate the format string.
+
+        eg: `pr_info("Hello\n");`, it is equivalent to `printk(KERN_INFO "HEllo\n)`.
+
+    - There are other wrapper macros for `printk` in `printk.h` similar to these, such as `pr_err` and `pr_warn`.
+
 - Run: `cat /proc/sys/kernel/printk` to check the current console_loglevel. The result shows the **current**, **default**, **minimum** and **boot-time-default** log levels.
 
-- Run: `sudo sh -c "echo x x x x > /proc/sys/kernel/printk"` to change the kern_levels
+- Run: `sudo sh -c "echo x x x x > /proc/sys/kernel/printk"` to change the kern_levels.
 
     eg: `sudo sh -c "echo 7 4 1 7 > /proc/sys/kernel/printk"`
 
@@ -71,3 +79,19 @@ Time: Sep-15-2016
     - `#define KERN_INFO	KERN_SOH "6"` /* informational */
     
     - `#define KERN_DEBUG	KERN_SOH "7"` /* debug-level messages */
+
+## moduleparam.h
+
+- `#define module_param(name, type, perm) module_param_named(name, name, type, perm)`
+
+    - `name`: the variable to alter, and exposed parameter name.
+
+    - `type`: the type of the parameter.
+
+    - `perm`: visibility in sysfs.
+
+- `#define MODULE_PARM_DESC(_parm, desc) __MODULE_INFO(parm, _parm, #_parm ":" desc)`
+
+    - Add a text description to a parameter definded by `module_param`.
+
+        eg: `MODULE_PARM_DESC(count, "Number of times to print");`
