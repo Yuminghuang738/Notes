@@ -1,6 +1,6 @@
 # Kernel Headers 
 
-Time: Sep-15-2016
+Time: Sep-15-2026
 
 ## init.h
 
@@ -95,3 +95,29 @@ Time: Sep-15-2016
     - Add a text description to a parameter definded by `module_param`.
 
         eg: `MODULE_PARM_DESC(count, "Number of times to print");`
+
+## cdev.h
+
+```
+struct cdev 
+{
+	struct kobject kobj;
+	struct module *owner;
+	const struct file_operations *ops;
+	struct list_head list;
+	dev_t dev;
+	unsigned int count;
+} __randomize_layout;
+```
+
+- `struct kobject kobj`: An embedded kernel object through which devices are uniformly integrated into the "Linux device driver model" for management.
+
+- `struct module *owner`: A pointer to the kernel module object containing the character device driver.
+
+- `const struct file_operations *ops`: It includes a series of member functions for opening, closing, reading/writing, and controlling files.
+
+- `struct list_head list`: Used to link character devices in the system into a linked list.
+
+- `dev_t dev`: The char device number, it consists of a major device number and a minor device number.
+
+- `unsigned int count`: The number of minor device numbers associated with the same major device number.

@@ -184,3 +184,51 @@ Kernel modules can't rely on C standard library functions while running, so we n
 - Use `MODULE_PARM_DESC` to add a text description to a parameter definded by `module_param`.
 
     eg: `MODULE_PARM_DESC(count, "Number of times to print");`
+
+## [Linux字符设备驱动 — [野火]嵌入式Linux驱动开发实战指南](https://doc.embedfire.com/linux/rk356x/driver/zh/latest/linux_driver/base_character_device.html) 
+
+Linux is a file-based system, all hardware is represented by corresponding files within the `/dev` directory, the actual hardware can be accessed by accessing the file.
+
+- Based on the methods used to read, write and sotre data, devices can be classified into the following types:
+
+    - **char device**: read and write data by byte or character.
+
+    - **block device**: typically support random access and addressing, and utilize a cache.
+
+    - **net device**: a special type of device, interact with the kernel network protocol stack via the Socket API.
+
+- In the linux kernel, char devices are abstracted as `struct cdev`, it records the information and option interface of the device. 
+
+    Register a `struct cdev` object with the kernel, then create a file(device node) binding object cdev. After that, we can access the device by accessing the file.
+
+    ![cdev](images/cdev.png)
+
+- In Linux, devices are represented by device numbers, the major number distinguishes the device category, while the minor number identifies the specific device.
+
+    The `cdev` struct is used by the kernel to record device numbers.
+
+    When using a device, we typically open the device node, through the node's `inode` and `file` structures to locate the `file_operations` structure and retrieve the specific methods for operating the device from it.  
+
+- Run `ls -l /dev` to list all devices in the system.
+
+    As shown in the figure below, 'c' identifies a character device, and 'b' identifies a block device. For example, `autofs` is a character device ('c') with a major number of 10 and a minor number of 235; `loop0` is a block device with a major number of 7 and a minor number of 0. Additionally, it can be seen that `loop0` through `loop3` share the same major number, while their minor numbers increment starting from 0.
+
+    ![device-number](images/device-number.png)
+
+    Generally speaking, the major device number points to the device driver, while the minor device number points to a specific device. As shown in the figure above, I2C-0 and I2C-1 are distinct devices but share the same driver.
+
+- In the kernel, `dev_t` is used to represent the device number, it is a 32-bit value in which the high 12 bits represent the major device number and the low 20 bits represent the minor device number.
+
+- The kernel tracks device numbers using a hash table. The hash table consists of arrays and linked lists. It use the major device number as the `cdev_map` identifier, and employ the hash function `f(major) = major % 255` to calculate the array index. If there is a major device number conflict, the minor device number will be used as the comparison value to sort the linked list nodes.
+
+    ![harh-table](images/harh-table.jpg)
+
+- A device node is the Linux kernel's abstraction of a device, a device node is essentially a file. It is created in the `/dev` directory using the `mknod` command.
+
+- The driver development process involves three important kernel data structures, they are located in ``kernle/include/linux/fs.h``
+
+    - `struct file_operations`
+
+    - `struct file`
+
+    - `struct inode`
