@@ -1,4 +1,4 @@
-## Kernel goto Error Handling Style
+# Kernel goto Error Handling Style
 
 Pattern: acquire resources in order, on failure goto a cleanup label.
 

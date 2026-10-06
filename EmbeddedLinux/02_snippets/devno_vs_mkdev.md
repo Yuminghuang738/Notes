@@ -1,4 +1,4 @@
-## devno vs MKDEV
+# devno vs MKDEV
 
 Purpose: clarify the difference between a `dev_t` variable and the `MKDEV` macro.
 

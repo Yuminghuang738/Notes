@@ -1,4 +1,4 @@
-## struct class
+# struct class
 
 Purpose: classify devices and auto-create `/dev` nodes via udev.
 

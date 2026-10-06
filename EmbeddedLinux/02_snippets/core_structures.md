@@ -1,4 +1,4 @@
-## Core Structures
+# Core Structures
 
 | Structure | Represents | Key Point |
 |-----------|-----------|-----------|

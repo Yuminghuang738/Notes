@@ -1,4 +1,4 @@
-## Device Number Allocation
+# Device Number Allocation
 
 - `register_chrdev_region(dev, count, name)`: manually specify major number.
   - Requires checking `Documentation/devices.txt` (deprecated since 5.8).

@@ -1,4 +1,4 @@
-## IOMUX Not Configured as GPIO Caused GPIO Output Not Working
+# IOMUX Not Configured as GPIO Caused GPIO Output Not Working
 
 **Symptom**: LED on GPIO0_C0 does not respond, even though driver correctly sets `DR_H` / `DDR_H`.
 
