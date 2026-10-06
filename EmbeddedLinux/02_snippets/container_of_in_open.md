@@ -1,4 +1,4 @@
-## container_of in open()
+# container_of in open()
 
 Purpose: recover custom device struct from `inode->i_cdev`, store in `filp->private_data`.
 

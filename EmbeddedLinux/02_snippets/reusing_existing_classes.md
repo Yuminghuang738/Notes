@@ -1,4 +1,4 @@
-## Reusing Existing Classes
+# Reusing Existing Classes
 
 If a suitable class already exists, no need to call `class_create()`.
 

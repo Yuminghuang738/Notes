@@ -1,4 +1,4 @@
-## sudo and Redirection
+# sudo and Redirection
 
 Problem: `sudo echo 0 > file` fails with permission denied.
 

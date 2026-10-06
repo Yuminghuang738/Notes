@@ -1,4 +1,4 @@
-## Embedded Linux Learning Roadmap
+# Embedded Linux Learning Roadmap
 
 | Phase | Goal | Checkpoint |
 |-------|------|------------|

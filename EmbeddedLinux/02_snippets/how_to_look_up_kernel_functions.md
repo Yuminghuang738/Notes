@@ -1,4 +1,4 @@
-## How to Look Up Kernel Functions
+# How to Look Up Kernel Functions
 
 1. **elixir.bootlin.com** — fastest, searchable, version-switchable
 2. **Header** (`include/linux/*.h`) — prototype, params, return type
