@@ -1,1 +1,1 @@
-**This is my coding notes repo, where I review and record my learning journey.**
+# My coding notes repo
