@@ -1,4 +1,4 @@
-# Why Kernel Configuration Is Needed
+# Kernel Configuration
 
 Kernel is highly configurable: `.config` decides what gets built.
 
