@@ -1,7 +1,5 @@
 # Embedded Linux Development Basics
 
-Time: Sep-9-2026
-
 ## [HOWTO do Linux kernel development — The Linux Kernel documentation](https://docs.kernel.org/process/howto.html)
 
 - Arbitrary `long long` divisions and floating point are not allowed. 
