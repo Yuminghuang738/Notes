@@ -1,7 +1,5 @@
 # Linux Kernel Module 
 
-Time: Sep-13-2026
-
 ## [Linux内核模块 — [野火]嵌入式Linux驱动开发实战指南](https://doc.embedfire.com/linux/rk356x/driver/zh/latest/linux_driver/base_linuxkernel_module.html)
 
 The Linux operating system employs the monolithic architecture, it has a distinct drawback: modifying or adding a kernel function (such as adding a device driver) requires recompiling the entire kernel. To address this specific limitation, Linux introduced the mechanism of kernel modules. The specific differences are illustrated in the image below:
@@ -37,6 +35,12 @@ At runtime, modules are linked to the kernel and executes within kernel space as
 - Run: `readelf -p .modinfo xxx.ko` to view the string table of the modinfo section.
 
     - In an ELF file, strings are aggregated into a single table, and they are referenced using their offsets within this table.
+
+- Run: `cat /proc/sys/kernel/printk` to check the current console_loglevel. The result shows the **current**, **default**, **minimum** and **boot-time-default** log levels.
+
+- Run: `sudo sh -c "echo x x x x > /proc/sys/kernel/printk"` to change the kern_levels.
+
+    eg: `sudo sh -c "echo 7 4 1 7 > /proc/sys/kernel/printk"`
 
 - The process of load a kernel module using the `insmod` command:
     
@@ -77,6 +81,32 @@ At runtime, modules are linked to the kernel and executes within kernel space as
 - The structure of the kernel's exported symbol table consists of two fields: the symbol's memory address and a pointer to the symbol name. The symbol names themselves are stored in the `__ksymtab_strings` section.
 
 - When other kernel modules need to locate a symbol, they call `resolve_symbol_wait` to search for the target symbol by name within the kernel and other modules, `resolve_symbol_wait` calls `resolve_symbol`, which in turn calls `find_symbol`. Once the symbol is found, its actual address is assigned to the symbol table entry: `sym[i].st_value = ksym->value;`.
+
+- The kernel can take `__init` as hint that the function is used only during the initialization phase and free up used memory resources after.
+    
+    - The `__init` hint should be added before the function name. 
+        
+        eg: `static void __init initme(int x, int y);`
+
+    - Insert `__initdata` or `__initconst` between the variable name and equal sign followed by value.
+
+        eg: `static int init_variable __initdata = 0;`
+
+- The kernel can takee `__exit` ad hint tha the function is used onlu during the unload phase and free up used memory resources after.
+
+    - The `__exit` hint should be added before the function name.
+
+        eg: `static void __exit exitme(int x, int y);`
+
+    - Insert `__exitdata` between the variable name and equal sign followed by value.
+
+        eg: `static int exit_variable __exitdata = 0;`
+
+- Use the `module_init` macro to register the module's loading function with the kernel.
+
+    - Return `0` indicates that the module initialized successfully, and a directory named after the module will be created under `/sys/module`.
+
+    - Return a non-zero value indicates that the module initialization failed. 
 
 ## [Linux内核模块实验 — [野火]嵌入式Linux驱动开发实战指南](https://doc.embedfire.com/linux/rk356x/driver/zh/latest/linux_driver/base_first_module.html)
 
